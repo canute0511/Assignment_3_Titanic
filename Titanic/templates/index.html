@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Titanic Survival Prediction</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            display: inline-block;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px #ccc;
+        }
+        input, select {
+            margin: 10px;
+            padding: 5px;
+            width: 80%;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .info-icon {
+            cursor: pointer;
+            color: #888;
+            margin-left: 5px;
+        }
+        .info-tooltip {
+            display: none;
+            background-color: #333;
+            color: #fff;
+            text-align: left;
+            padding: 10px;
+            border-radius: 5px;
+            position: absolute;
+            z-index: 1;
+            max-width: 250px;
+        }
+        .info-icon:hover + .info-tooltip {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h2>Titanic Survival Prediction</h2>
+    <form action="/predict" method="post">
+        <label>Pclass (1 = First, 2 = Second, 3 = Third):</label>
+        <select name="Pclass">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3" selected>3</option>
+        </select>
+        <span class="info-icon" title="Passenger class. 1 = First, 2 = Second, 3 = Third.">ℹ️</span>
+        <br>
+
+        <label>Sex:</label>
+        <select name="Sex">
+            <option value="1">Male</option>
+            <option value="0">Female</option>
+        </select>
+        <span class="info-icon" title="Gender of the passenger. 1 for Male, 0 for Female.">ℹ️</span>
+        <br>
+
+        <label>Age:</label>
+        <input type="number" name="Age" step="0.1" required><br>
+        <span class="info-icon" title="Age of the passenger. Please provide a number.">ℹ️</span>
+        <br>
+
+        <label>Siblings/Spouses Aboard (SibSp):</label>
+        <input type="number" name="SibSp" required><br>
+        <span class="info-icon" title="Number of siblings or spouses aboard.">ℹ️</span>
+        <br>
+
+        <label>Parents/Children Aboard (Parch):</label>
+        <input type="number" name="Parch" required><br>
+        <span class="info-icon" title="Number of parents or children aboard.">ℹ️</span>
+        <br>
+
+        <label>Fare:</label>
+        <input type="number" name="Fare" step="0.1" required><br>
+        <span class="info-icon" title="Fare paid by the passenger. Provide the amount in currency.">ℹ️</span>
+        <br>
+
+        <label>Embarked:</label>
+        <select name="Embarked_C">
+            <option value="0">Southampton (S)</option>
+            <option value="1">Cherbourg (C)</option>
+        </select>
+        <select name="Embarked_Q">
+            <option value="0">Southampton (S)</option>
+            <option value="1">Queenstown (Q)</option>
+        </select>
+        <br>
+        <span class="info-icon" title="Port where the passenger boarded. 0 = Southampton, 1 = Cherbourg or Queenstown.">ℹ️</span>
+        <br>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction_text %}
+    <h3>{{ prediction_text }}</h3>
+    {% endif %}
+</body>
+</html>
